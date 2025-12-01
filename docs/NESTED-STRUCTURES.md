@@ -190,14 +190,28 @@ const result = forge.parseToString(data);
 
 ## Naming Convention
 
-Generated interface names follow this pattern:
-- **Nested objects**: `{ParentInterface}{CapitalizedPropertyName}`
-- **Array items**: `{ParentInterface}{CapitalizedPropertyName}Item`
+Generated interface names use a **short, clean naming strategy**:
+- **Nested objects**: Use the property name as the interface name (e.g., `Profile`, `Settings`)
+- **Array items**: Use the plural property name as the interface name (e.g., `Users`, `Teams`)
+- **Duplicate prevention**: If a name is already used, adds a number suffix (e.g., `Profile`, `Profile2`)
 
 Examples:
-- `UserData` → `UserDataProfile` (nested object)
-- `UserData.posts` → `UserDataPostsItem` (array item)
-- `Project.team.members` → `ProjectTeamItemMembersItem` (deeply nested array)
+- `UserData.profile` → `Profile` (nested object)
+- `UserData.users[]` → `Users` (array of objects)
+- `Project.team[]` → `Team` (array item)
+- `Company.address.coordinates` → `Coordinates` (deeply nested)
+
+**Before (v1.0.0):**
+```typescript
+export interface ProjectDataProjectTeamItem { ... }
+export interface OrganizationOrganizationDepartmentsItemTeamsItemMembersItem { ... }
+```
+
+**Now (v1.1.0+):**
+```typescript
+export interface Team { ... }
+export interface Members { ... }
+```
 
 ## Benefits
 
