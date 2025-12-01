@@ -1,6 +1,6 @@
 {
   "name": "@enrivol/json-forge",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A powerful JSON parser and TypeScript/JavaScript model generator. Parse JSON effortlessly and automatically generate type-safe models for your projects.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
