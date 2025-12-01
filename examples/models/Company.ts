@@ -1,30 +1,30 @@
-export interface CompanyCompanyContactPhone {
+export interface Phone {
   mobile: string;
   office: string;
 }
 
-export interface CompanyCompanyContact {
+export interface Contact {
   email: string;
-  phone: CompanyCompanyContactPhone;
+  phone: Phone;
 }
 
-export interface CompanyCompanyAddressCoordinates {
+export interface Coordinates {
   lat: number;
   lng: number;
 }
 
-export interface CompanyCompanyAddress {
+export interface Address {
   street: string;
   city: string;
-  coordinates: CompanyCompanyAddressCoordinates;
-}
-
-export interface CompanyCompany {
-  name: string;
-  address: CompanyCompanyAddress;
-  contact: CompanyCompanyContact;
+  coordinates: Coordinates;
 }
 
 export interface Company {
-  company: CompanyCompany;
+  name: string;
+  address: Address;
+  contact: Contact;
+}
+
+export interface Company {
+  company: Company;
 }

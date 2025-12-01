@@ -45,7 +45,8 @@ export function inferType(value: any, parentKey?: string): { type: string; isCom
 export function generateTypeScriptInterface(
   data: any,
   interfaceName: string,
-  exportModel: boolean = true
+  exportModel: boolean = true,
+  usedNames: Set<string> = new Set()
 ): string {
   const exportKeyword = exportModel ? 'export ' : '';
   let interfaceCode = `${exportKeyword}interface ${interfaceName} {\n`;
@@ -55,15 +56,17 @@ export function generateTypeScriptInterface(
     const typeInfo = inferType(value, key);
     
     if (typeInfo.isComplexObject && value !== null && !Array.isArray(value)) {
-      // Nested object - create separate interface
-      const nestedInterfaceName = `${interfaceName}${capitalize(key)}`;
-      const nestedInterface = generateTypeScriptInterface(value, nestedInterfaceName, exportModel);
+      // Nested object - create separate interface with shorter name
+      const nestedInterfaceName = generateShortInterfaceName(capitalize(key), usedNames);
+      usedNames.add(nestedInterfaceName);
+      const nestedInterface = generateTypeScriptInterface(value, nestedInterfaceName, exportModel, usedNames);
       nestedInterfaces = nestedInterface + '\n\n' + nestedInterfaces;
       interfaceCode += `  ${key}: ${nestedInterfaceName};\n`;
     } else if (typeInfo.isArrayOfObjects && Array.isArray(value) && value.length > 0) {
-      // Array of objects - create interface for array items
-      const itemInterfaceName = `${interfaceName}${capitalize(key)}Item`;
-      const itemInterface = generateTypeScriptInterface(value[0], itemInterfaceName, exportModel);
+      // Array of objects - create interface for array items with shorter name
+      const itemInterfaceName = generateShortInterfaceName(capitalize(key), usedNames);
+      usedNames.add(itemInterfaceName);
+      const itemInterface = generateTypeScriptInterface(value[0], itemInterfaceName, exportModel, usedNames);
       nestedInterfaces = itemInterface + '\n\n' + nestedInterfaces;
       interfaceCode += `  ${key}: ${itemInterfaceName}[];\n`;
     } else {
@@ -77,12 +80,33 @@ export function generateTypeScriptInterface(
 }
 
 /**
+ * Generates a short, unique interface name
+ */
+function generateShortInterfaceName(baseName: string, usedNames: Set<string>): string {
+  // If the base name is unique, use it
+  if (!usedNames.has(baseName)) {
+    return baseName;
+  }
+  
+  // Otherwise, append a number
+  let counter = 2;
+  let newName = `${baseName}${counter}`;
+  while (usedNames.has(newName)) {
+    counter++;
+    newName = `${baseName}${counter}`;
+  }
+  
+  return newName;
+}
+
+/**
  * Generates JavaScript JSDoc types from JSON object
  */
 export function generateJavaScriptTypes(
   data: any,
   typeName: string,
-  exportModel: boolean = true
+  exportModel: boolean = true,
+  usedNames: Set<string> = new Set()
 ): string {
   const exportKeyword = exportModel ? 'module.exports = ' : '';
   let typeCode = `/**\n * @typedef {Object} ${typeName}\n`;
@@ -92,15 +116,17 @@ export function generateJavaScriptTypes(
     const typeInfo = inferType(value, key);
     
     if (typeInfo.isComplexObject && value !== null && !Array.isArray(value)) {
-      // Nested object - create separate typedef
-      const nestedTypeName = `${typeName}${capitalize(key)}`;
-      const nestedType = generateJavaScriptTypes(value, nestedTypeName, exportModel);
+      // Nested object - create separate typedef with shorter name
+      const nestedTypeName = generateShortInterfaceName(capitalize(key), usedNames);
+      usedNames.add(nestedTypeName);
+      const nestedType = generateJavaScriptTypes(value, nestedTypeName, exportModel, usedNames);
       nestedTypes = nestedType + '\n' + nestedTypes;
       typeCode += ` * @property {${nestedTypeName}} ${key}\n`;
     } else if (typeInfo.isArrayOfObjects && Array.isArray(value) && value.length > 0) {
-      // Array of objects - create typedef for array items
-      const itemTypeName = `${typeName}${capitalize(key)}Item`;
-      const itemType = generateJavaScriptTypes(value[0], itemTypeName, exportModel);
+      // Array of objects - create typedef for array items with shorter name
+      const itemTypeName = generateShortInterfaceName(capitalize(key), usedNames);
+      usedNames.add(itemTypeName);
+      const itemType = generateJavaScriptTypes(value[0], itemTypeName, exportModel, usedNames);
       nestedTypes = itemType + '\n' + nestedTypes;
       typeCode += ` * @property {Array<${itemTypeName}>} ${key}\n`;
     } else {

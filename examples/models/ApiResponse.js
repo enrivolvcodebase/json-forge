@@ -1,5 +1,5 @@
 /**
- * @typedef {Object} ApiResponseDataPagination
+ * @typedef {Object} Pagination
  * @property {number} page
  * @property {number} perPage
  * @property {number} total
@@ -8,7 +8,7 @@
 module.exports = {};
 
 /**
- * @typedef {Object} ApiResponseDataItemsItemAttributes
+ * @typedef {Object} Attributes
  * @property {string} color
  * @property {string} size
  */
@@ -16,19 +16,19 @@ module.exports = {};
 module.exports = {};
 
 /**
- * @typedef {Object} ApiResponseDataItemsItem
+ * @typedef {Object} Items
  * @property {string} id
  * @property {string} name
  * @property {number} price
- * @property {ApiResponseDataItemsItemAttributes} attributes
+ * @property {Attributes} attributes
  */
 
 module.exports = {};
 
 /**
- * @typedef {Object} ApiResponseData
- * @property {Array<ApiResponseDataItemsItem>} items
- * @property {ApiResponseDataPagination} pagination
+ * @typedef {Object} Data
+ * @property {Array<Items>} items
+ * @property {Pagination} pagination
  */
 
 module.exports = {};
@@ -36,7 +36,7 @@ module.exports = {};
 /**
  * @typedef {Object} ApiResponse
  * @property {string} status
- * @property {ApiResponseData} data
+ * @property {Data} data
  * @property {Array} errors
  */
 

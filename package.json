@@ -28,12 +28,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/enrivolv/json-forge"
+    "url": "https://github.com/enrivolvcodebase/json-forge"
   },
   "bugs": {
-    "url": "https://github.com/enrivolv/json-forge/issues"
+    "url": "https://github.com/enrivolvcodebase/json-forge/issues"
   },
-  "homepage": "https://github.com/enrivolv/json-forge#readme",
+  "homepage": "https://github.com/enrivolvcodebase/json-forge#readme",
   "devDependencies": {
     "@types/jest": "^29.5.11",
     "@types/node": "^20.10.6",

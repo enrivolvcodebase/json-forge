@@ -1,10 +1,10 @@
-export interface UserDataPostsItem {
+export interface Posts {
   postId: number;
   title: string;
   views: number;
 }
 
-export interface UserDataUsersItem {
+export interface Users {
   id: number;
   name: string;
   email: string;
@@ -12,6 +12,6 @@ export interface UserDataUsersItem {
 }
 
 export interface UserData {
-  users: UserDataUsersItem[];
-  posts: UserDataPostsItem[];
+  users: Users[];
+  posts: Posts[];
 }

@@ -1,51 +1,51 @@
-export interface ProjectDataMetadata {
+export interface Metadata {
   createdAt: string;
   updatedAt: string;
   version: string;
 }
 
-export interface ProjectDataProjectBudgetBreakdown {
+export interface Breakdown {
   development: number;
   infrastructure: number;
   marketing: number;
 }
 
-export interface ProjectDataProjectBudget {
+export interface Budget {
   allocated: number;
   spent: number;
   currency: string;
-  breakdown: ProjectDataProjectBudgetBreakdown;
+  breakdown: Breakdown;
 }
 
-export interface ProjectDataProjectMilestonesItemTasksItem {
+export interface Tasks {
   taskId: string;
   description: string;
   completed: boolean;
 }
 
-export interface ProjectDataProjectMilestonesItem {
+export interface Milestones {
   id: string;
   title: string;
   deadline: string;
-  tasks: ProjectDataProjectMilestonesItemTasksItem[];
+  tasks: Tasks[];
 }
 
-export interface ProjectDataProjectTeamItem {
+export interface Team {
   memberId: number;
   name: string;
   role: string;
   skills: string[];
 }
 
-export interface ProjectDataProject {
+export interface Project {
   id: string;
   name: string;
-  team: ProjectDataProjectTeamItem[];
-  milestones: ProjectDataProjectMilestonesItem[];
-  budget: ProjectDataProjectBudget;
+  team: Team[];
+  milestones: Milestones[];
+  budget: Budget;
 }
 
 export interface ProjectData {
-  project: ProjectDataProject;
-  metadata: ProjectDataMetadata;
+  project: Project;
+  metadata: Metadata;
 }

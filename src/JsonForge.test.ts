@@ -133,8 +133,8 @@ describe('JsonForge', () => {
       expect(result.modelFiles).toBeDefined();
       
       const modelContent = fs.readFileSync(result.modelFiles![0], 'utf8');
-      expect(modelContent).toContain('interface NestedDataUserProfile');
-      expect(modelContent).toContain('interface NestedDataUser');
+      expect(modelContent).toContain('interface Profile');
+      expect(modelContent).toContain('interface User');
       expect(modelContent).toContain('interface NestedData');
     });
 
@@ -157,8 +157,8 @@ describe('JsonForge', () => {
       expect(result.modelFiles).toBeDefined();
 
       const modelContent = fs.readFileSync(result.modelFiles![0], 'utf8');
-      expect(modelContent).toContain('interface UsersDataUsersItem');
-      expect(modelContent).toContain('users: UsersDataUsersItem[]');
+      expect(modelContent).toContain('interface Users');
+      expect(modelContent).toContain('users: Users[]');
     });
 
     it('should handle deeply nested arrays with objects', () => {
@@ -187,9 +187,10 @@ describe('JsonForge', () => {
       expect(result.modelFiles).toBeDefined();
 
       const modelContent = fs.readFileSync(result.modelFiles![0], 'utf8');
-      expect(modelContent).toContain('interface ComplexDataCompanyDepartmentsItem');
-      expect(modelContent).toContain('interface ComplexDataCompanyDepartmentsItemTeamsItem');
-      expect(modelContent).toContain('interface ComplexDataCompanyDepartmentsItemTeamsItemMembersItem');
+      expect(modelContent).toContain('interface Members');
+      expect(modelContent).toContain('interface Teams');
+      expect(modelContent).toContain('interface Departments');
+      expect(modelContent).toContain('interface Company');
     });
 
     it('should handle arrays of primitives', () => {
@@ -241,9 +242,10 @@ describe('JsonForge', () => {
       expect(result.modelFiles).toBeDefined();
 
       const modelContent = fs.readFileSync(result.modelFiles![0], 'utf8');
-      expect(modelContent).toContain('interface MixedDataProjectTeamItem');
-      expect(modelContent).toContain('interface MixedDataProjectBudget');
-      expect(modelContent).toContain('interface MixedDataProjectBudgetBreakdown');
+      expect(modelContent).toContain('interface Breakdown');
+      expect(modelContent).toContain('interface Budget');
+      expect(modelContent).toContain('interface Team');
+      expect(modelContent).toContain('interface Project');
       expect(modelContent).toContain('skills: string[]');
       expect(modelContent).toContain('tags: string[]');
     });
@@ -266,9 +268,9 @@ describe('JsonForge', () => {
       expect(result.modelFiles).toBeDefined();
 
       const modelContent = fs.readFileSync(result.modelFiles![0], 'utf8');
-      expect(modelContent).toContain('@typedef {Object} JsNestedItemsItem');
-      expect(modelContent).toContain('@typedef {Object} JsNestedMetadata');
-      expect(modelContent).toContain('@property {Array<JsNestedItemsItem>} items');
+      expect(modelContent).toContain('@typedef {Object} Items');
+      expect(modelContent).toContain('@typedef {Object} Metadata');
+      expect(modelContent).toContain('@property {Array<Items>} items');
     });
   });
 });

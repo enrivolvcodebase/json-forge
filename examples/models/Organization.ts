@@ -1,31 +1,31 @@
-export interface OrganizationStats {
+export interface Stats {
   totalEmployees: number;
   departments: number;
 }
 
-export interface OrganizationOrganizationDepartmentsItemTeamsItemMembersItem {
+export interface Members {
   id: number;
   name: string;
 }
 
-export interface OrganizationOrganizationDepartmentsItemTeamsItem {
+export interface Teams {
   teamId: string;
   teamName: string;
-  members: OrganizationOrganizationDepartmentsItemTeamsItemMembersItem[];
+  members: Members[];
 }
 
-export interface OrganizationOrganizationDepartmentsItem {
+export interface Departments {
   deptId: string;
   name: string;
-  teams: OrganizationOrganizationDepartmentsItemTeamsItem[];
-}
-
-export interface OrganizationOrganization {
-  departments: OrganizationOrganizationDepartmentsItem[];
+  teams: Teams[];
 }
 
 export interface Organization {
-  organization: OrganizationOrganization;
+  departments: Departments[];
+}
+
+export interface Organization {
+  organization: Organization;
   tags: string[];
-  stats: OrganizationStats;
+  stats: Stats;
 }
