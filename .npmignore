@@ -1,0 +1,37 @@
+# Ignore source files
+src/
+examples/
+*.test.ts
+*.spec.ts
+
+# Ignore config files
+tsconfig.json
+jest.config.js
+.eslintrc.json
+.prettierrc
+
+# Ignore documentation (except README and LICENSE)
+CONTRIBUTING.md
+PUBLISHING.md
+
+# Ignore development files
+node_modules/
+coverage/
+.vscode/
+.idea/
+
+# Ignore git files
+.git/
+.gitignore
+
+# Ignore CI/CD
+.github/
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+.DS_Store
+
+# Ignore test files
+test-models/
+__tests__/
